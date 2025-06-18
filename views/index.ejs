@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-zinc-900 text-white p-10">
+  <h1 class="text-3xl mb-6">Create a Task</h1>
+  <form action="/create" method="POST">
+    <input type="text" name="title" placeholder="Enter Title" class="block w-full rounded px-4 py-2 mb-2 bg-zinc-800" required />
+    <textarea name="details" placeholder="Enter Details" class="block w-full rounded px-4 py-2 mb-2 bg-zinc-800" required></textarea>
+    <button type="submit" class="bg-blue-500 px-4 py-2 rounded">Create</button>
+  </form>
+
+  <hr class="my-6 border-zinc-700" />
+
+  <h2 class="text-2xl mb-4">Your Tasks</h2>
+  <div class="flex flex-wrap gap-4">
+    <% if (files.length > 0) { %>
+      <% files.forEach(file => { %>
+        <div class="bg-zinc-800 p-4 rounded w-64">
+          <h3 class="text-lg font-bold"><%= file.replace('.txt','') %></h3>
+          <a href="/file/<%= file %>" class="text-blue-400 block mt-2">Read</a>
+          <a href="/update/<%= file %>" class="text-green-400 block mt-1">Edit Content</a>
+          <a href="/edit/<%= file %>" class="text-yellow-400 block mt-1">Rename</a>
+          <a href="/delete/<%= file %>" class="bg-red-600 text-white px-2 py-1 mt-1 inline-block rounded"
+           onclick="return confirm('Are you sure?');">Delete</a>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <p>No tasks yet.</p>
+    <% } %>
+  </div>
+</body>
+</html>
